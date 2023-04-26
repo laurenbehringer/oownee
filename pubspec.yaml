@@ -22,6 +22,7 @@ dependencies:
   image_picker: ^0.8.7
   shared_preferences: ^2.1.0
   google_sign_in:
+  firebase_core:
 
 flutter_native_splash:
   android: true

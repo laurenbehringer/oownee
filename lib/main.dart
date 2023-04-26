@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,11 +15,13 @@ import 'package:oownee/presentation/bloc/view_property/property_view_bloc.dart';
 import 'package:oownee/presentation/bloc/view_tenant/view_tenant_bloc.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
   // WidgetsFlutterBinding.ensureInitialized();
   // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
   //   statusBarColor: Colors.transparent, // transparent status bar
   // ));
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   di.init();
   runApp(MyApp());
 }
