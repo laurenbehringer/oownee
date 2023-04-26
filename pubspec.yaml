@@ -1,0 +1,56 @@
+name: oownee
+description: A new Flutter project.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.3 <3.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  google_fonts: ^2.1.0
+  flutter_native_splash: ^2.2.19
+  flutter_bloc:
+  equatable:
+  dio: ^5.0.3
+  http:
+  provider: ^6.0.2
+  get_it: ^7.2.0
+  cached_network_image: ^3.2.3
+  image_picker: ^0.8.7
+  shared_preferences: ^2.1.0
+  google_sign_in:
+
+flutter_native_splash:
+  android: true
+  ios: true
+  image: assets/logo_two.png
+  android_12:
+    image: assets/logo_two.png
+  color: "#023e8a"
+  web: false
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  flutter_launcher_icons: "^0.12.0"
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/launcher_icons/icon.png"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/languages/
+    - assets/launcher_icons/
+    - assets/property_type/
+    - assets/dashboard/
