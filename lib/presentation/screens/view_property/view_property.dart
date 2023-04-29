@@ -1,11 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oownee/presentation/bloc/view_property/property_view_bloc.dart';
+import 'package:oownee/presentation/screens/add_tenant_screen/add_tenant_screen.dart';
+import 'package:oownee/presentation/screens/view_property/edit_property.dart';
 import 'package:oownee/presentation/shared_widgets/buttons.dart';
 import 'package:oownee/presentation/shared_widgets/cached_network_image.dart';
 import 'package:oownee/presentation/shared_widgets/dialogs.dart';
-import 'package:oownee/presentation/view_property/edit_property.dart';
 
 class ViewPropertyScreen extends StatefulWidget {
   final propertyID;
@@ -173,7 +173,12 @@ class _ViewPropertyScreenState extends State<ViewPropertyScreen> {
                             GestureDetector(
                               onTap: () {
                                 Dialogs.confirmDialog(context, fun: () {
-                                  print("confirm add");
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => AddTenantScren(
+                                              propertyID: widget.propertyID)));
                                 });
                               },
                               child: Container(

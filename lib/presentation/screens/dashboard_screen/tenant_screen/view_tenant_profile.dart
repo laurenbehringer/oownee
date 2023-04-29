@@ -2,18 +2,29 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oownee/presentation/bloc/view_tenant/view_tenant_bloc.dart';
-import 'package:oownee/presentation/dashboard_screen/tenant_screen/edit_tenant_profile.dart';
+import 'package:oownee/presentation/screens/dashboard_screen/tenant_screen/edit_tenant_profile.dart';
 import 'package:oownee/presentation/shared_widgets/buttons.dart';
 import 'package:oownee/presentation/shared_widgets/cached_network_image.dart';
 
 class ViewTenantProfile extends StatefulWidget {
-  ViewTenantProfile({Key? key}) : super(key: key);
+  final String tenantID;
+  const ViewTenantProfile({Key? key, required this.tenantID}) : super(key: key);
 
   @override
   State<ViewTenantProfile> createState() => _ViewTenantProfileState();
 }
 
 class _ViewTenantProfileState extends State<ViewTenantProfile> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    print("t id = ${widget.tenantID}");
+    BlocProvider.of<ViewTenantBloc>(context)
+        .add(LoadTenantViewEvent(tenantID: widget.tenantID));
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,7 +141,7 @@ class _ViewTenantProfileState extends State<ViewTenantProfile> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15),
                           ),
-                          Text(state.tenantData.data.tenantCountry,
+                          Text(state.tenantData.data.propertyAddress,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 15)),
                         ],
@@ -144,7 +155,7 @@ class _ViewTenantProfileState extends State<ViewTenantProfile> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15),
                           ),
-                          Text(state.tenantData.data.monthlyRent,
+                          Text(state.tenantData.data.tenantRent,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 15)),
                         ],

@@ -6,10 +6,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:oownee/data/models/property_view_model/property_view_response_model.dart';
 import 'package:oownee/presentation/bloc/view_property/property_view_bloc.dart';
 import 'package:oownee/presentation/bloc/view_tenant/view_tenant_bloc.dart';
+import 'package:oownee/presentation/screens/view_property/view_property.dart';
 import 'package:oownee/presentation/shared_widgets/buttons.dart';
 import 'package:oownee/presentation/shared_widgets/cached_network_image.dart';
 import 'package:oownee/presentation/shared_widgets/other.dart';
-import 'package:oownee/presentation/view_property/view_property.dart';
 
 class EditPropertyScreen extends StatefulWidget {
   final Property property;

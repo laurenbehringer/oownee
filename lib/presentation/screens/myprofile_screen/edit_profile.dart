@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:oownee/presentation/bloc/owner_view/owner_view_bloc.dart';
-import 'package:oownee/presentation/dashboard_screen/dashboard_screen.dart';
 import 'package:oownee/presentation/routes/routes_const.dart';
 import 'package:oownee/presentation/shared_widgets/buttons.dart';
 import 'package:oownee/presentation/shared_widgets/cached_network_image.dart';

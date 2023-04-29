@@ -4,13 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oownee/data/models/quick_stats.dart';
 import 'package:oownee/data/services/api_connection.dart';
 import 'package:oownee/presentation/bloc/dashboard/dashboard_bloc.dart';
-import 'package:oownee/presentation/dashboard_screen/widgets/my_properties.dart';
-import 'package:oownee/presentation/dashboard_screen/widgets/my_tenants.dart';
-import 'package:oownee/presentation/dashboard_screen/widgets/quick_stats.dart';
-import 'package:oownee/presentation/dashboard_screen/widgets/top_bar.dart';
 import 'package:oownee/presentation/routes/routes_const.dart';
+import 'package:oownee/presentation/screens/dashboard_screen/widgets/my_properties.dart';
+import 'package:oownee/presentation/screens/dashboard_screen/widgets/my_tenants.dart';
+import 'package:oownee/presentation/screens/dashboard_screen/widgets/top_bar.dart';
 import 'package:oownee/presentation/shared_widgets/textfield.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'widgets/quick_stats.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -77,6 +78,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         const SizedBox(height: 15),
                         QuickStatsContainer(ownerList: state.dashboardData),
                         const SizedBox(height: 45),
+                        // TextButton(
+                        //   onPressed: () {
+                        //     Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (context) =>
+                        //                 ViewTenantProfile(tenantID: "3")));
+                        //   },
+                        //   child: Text("Burron"),
+                        // ),
                         const Padding(
                           padding: EdgeInsets.only(left: 20),
                           child: Text(

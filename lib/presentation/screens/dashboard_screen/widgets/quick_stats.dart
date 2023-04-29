@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:oownee/data/models/dashboard_response_model.dart';
 import 'package:oownee/data/models/quick_stats.dart';
-import '../../../data/models/dashboard_response_model.dart';
 
 class QuickStatsContainer extends StatefulWidget {
   DashboardResponseModel ownerList;

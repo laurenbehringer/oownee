@@ -36,17 +36,28 @@ class ViewTenantBloc extends Bloc<ViewTenantEvent, ViewTenantState> {
       if (event is LoadTenantEditEvent) {
         emit(TenantViewLoadState());
 
+        print("body = ${event.tenantID}");
+        print("body = ${event.name}");
+        print("body = ${event.phone}");
+        print("body = ${event.rentPrice}");
+        print("body = ${event.startingDate}");
+        print("body = ${event.propertyID}");
+        print("body = ${event.email}");
+        print("body = ${event.bankaccNo}");
+
         FormData body = FormData.fromMap({
           "tenant_id": event.tenantID,
           "tenant_name": event.name,
-          // "property_name": event.propertyName,
-          "tenant_rent": event.rentPrice,
-          // "email": event.email,
           "phone_number": event.phone,
-          "bankNumber": event.bankNumber,
-          "date": event.startingDate,
+          "tenant_rent": event.rentPrice,
+          "tenant_birthdate": event.birthDate,
           // "tenant_doc": event.image,
           // "tenant_image": event.image,
+          "tenant_country": event.tenantCountry,
+          "date": event.startingDate,
+          "property_id": event.propertyID,
+          "tenant_email": event.email,
+          "tenant_bank_acc_no": event.bankaccNo,
         });
 
         try {

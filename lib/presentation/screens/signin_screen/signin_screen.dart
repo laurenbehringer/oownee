@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oownee/presentation/bloc/login/login_bloc.dart';
-import 'package:oownee/presentation/registration_screens/property_name.dart';
 import 'package:oownee/presentation/routes/routes_const.dart';
 import 'package:oownee/presentation/shared_widgets/buttons.dart';
 import 'package:oownee/presentation/shared_widgets/textfield.dart';

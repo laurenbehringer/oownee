@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oownee/data/models/dashboard_response_model.dart';
 import 'package:oownee/presentation/bloc/view_property/property_view_bloc.dart';
-import 'package:oownee/presentation/property_list_screen/property_list_screen.dart';
 import 'package:oownee/presentation/routes/routes_const.dart';
+import 'package:oownee/presentation/screens/property_list_screen/property_list_screen.dart';
+import 'package:oownee/presentation/screens/view_property/view_property.dart';
 import 'package:oownee/presentation/shared_widgets/textfield.dart';
-import 'package:oownee/presentation/view_property/view_property.dart';
 
 class MyProperties extends StatefulWidget {
   List<PropertyDetail> propertyList;

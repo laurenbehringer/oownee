@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oownee/data/models/dashboard_response_model.dart';
 import 'package:oownee/presentation/bloc/view_tenant/view_tenant_bloc.dart';
-import 'package:oownee/presentation/dashboard_screen/tenant_screen/view_tenant_profile.dart';
 import 'package:oownee/presentation/routes/routes_const.dart';
-import 'package:oownee/presentation/tenant_list_screen/tenant_list_screen.dart';
+import 'package:oownee/presentation/screens/dashboard_screen/tenant_screen/view_tenant_profile.dart';
+import 'package:oownee/presentation/screens/tenant_list_screen/tenant_list_screen.dart';
+import 'package:oownee/presentation/shared_widgets/cached_network_image.dart';
 
 class MyTenants extends StatefulWidget {
   List<PropertyDetail> propertydetailList;
@@ -21,7 +22,6 @@ class _MyTenantsState extends State<MyTenants> {
   void initState() {
     widget.propertydetailList
         .forEach((property) => allTenants.addAll(property.tenants));
-
     super.initState();
   }
 
@@ -86,14 +86,12 @@ class _MyTenantsState extends State<MyTenants> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      BlocProvider.of<ViewTenantBloc>(context).add(
-                          LoadTenantViewEvent(
-                              tenantID: allTenants[index].tenantId));
-
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ViewTenantProfile(),
+                            builder: (context) => ViewTenantProfile(
+                              tenantID: allTenants[index].tenantId,
+                            ),
                           ));
                     },
                     child: Container(
@@ -107,9 +105,9 @@ class _MyTenantsState extends State<MyTenants> {
                         children: [
                           Container(
                             height: 200,
-                            child: Image.asset(
-                              "assets/dashboard/tenant_def.png",
-                            ),
+                            width: 50,
+                            child: CustomNetworkImage(
+                                url: allTenants[index].tenantImage),
                           ),
                           SizedBox(width: 15),
                           Column(

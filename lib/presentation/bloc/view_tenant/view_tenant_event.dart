@@ -20,21 +20,26 @@ class LoadTenantEditEvent extends ViewTenantEvent {
       rentPrice,
       email,
       phone,
-      bankNumber,
-      startingDate;
+      startingDate,
+      propertyID,
+      birthDate,
+      tenantCountry,
+      bankaccNo;
   // final XFile image, document;
 
-  LoadTenantEditEvent({
-    required this.tenantID,
-    required this.name,
-    // required this.image,
-    required this.propertyName,
-    required this.rentPrice,
-    required this.email,
-    required this.phone,
-    required this.bankNumber,
-    required this.startingDate,
-  });
+  LoadTenantEditEvent(
+      {required this.tenantID,
+      required this.name,
+      // required this.image,
+      required this.propertyName,
+      required this.rentPrice,
+      required this.email,
+      required this.phone,
+      required this.startingDate,
+      required this.propertyID,
+      required this.birthDate,
+      required this.tenantCountry,
+      required this.bankaccNo});
 
   @override
   List<Object?> get props => [
@@ -44,7 +49,10 @@ class LoadTenantEditEvent extends ViewTenantEvent {
         rentPrice,
         email,
         phone,
-        bankNumber,
-        startingDate
+        startingDate,
+        propertyID,
+        birthDate,
+        bankaccNo,
+        tenantCountry
       ];
 }
