@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:oownee/app_view.dart';
 import 'package:oownee/firebase_options.dart';
 import 'package:oownee/injection_container.dart';
+import 'package:oownee/presentation/bloc/add_new_property_tenant/add_new_bloc.dart';
 import 'package:oownee/presentation/bloc/dashboard/dashboard_bloc.dart';
 import 'package:oownee/presentation/bloc/forgot_password/forgot_password_bloc.dart';
 import 'package:oownee/injection_container.dart' as di;
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
   final ownerviewBloc = sl<OwnerViewBloc>();
   final propertyviewBloc = sl<PropertyViewBloc>();
   final tenantviewBloc = sl<ViewTenantBloc>();
+  final addnewBloc = sl<AddNewBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => ownerviewBloc),
         BlocProvider(create: (_) => propertyviewBloc),
         BlocProvider(create: (_) => tenantviewBloc),
+        BlocProvider(create: (_) => addnewBloc),
       ],
       child: AppView(),
     );

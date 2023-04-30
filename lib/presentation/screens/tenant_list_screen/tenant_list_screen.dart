@@ -33,7 +33,10 @@ class _TenantListScreenState extends State<TenantListScreen> {
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
             Expanded(
-                child: ListView.builder(
+                child: ListView.separated(
+                    separatorBuilder: (context, index) {
+                      return SizedBox(height: 10);
+                    },
                     itemCount: widget.allTenants.length,
                     itemBuilder: (context, index) {
                       return Container(

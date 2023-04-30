@@ -80,7 +80,10 @@ class _MyTenantsState extends State<MyTenants> {
           SizedBox(height: 20),
           Container(
             height: 75,
-            child: ListView.builder(
+            child: ListView.separated(
+                separatorBuilder: (context, index) {
+                  return SizedBox(width: 10);
+                },
                 scrollDirection: Axis.horizontal,
                 itemCount: allTenants.length,
                 itemBuilder: (context, index) {

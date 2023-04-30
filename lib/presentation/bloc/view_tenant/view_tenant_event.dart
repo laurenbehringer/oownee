@@ -43,7 +43,6 @@ class LoadTenantEditEvent extends ViewTenantEvent {
 
   @override
   List<Object?> get props => [
-        tenantID,
         name,
         propertyName,
         rentPrice,

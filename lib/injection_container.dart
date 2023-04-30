@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:oownee/presentation/bloc/add_new_property_tenant/add_new_bloc.dart';
 import 'package:oownee/presentation/bloc/dashboard/dashboard_bloc.dart';
 import 'package:oownee/presentation/bloc/forgot_password/forgot_password_bloc.dart';
 import 'package:oownee/presentation/bloc/login/login_bloc.dart';
@@ -17,6 +18,7 @@ Future<void> init() async {
   sl.registerFactory(() => OwnerViewBloc());
   sl.registerFactory(() => PropertyViewBloc());
   sl.registerFactory(() => ViewTenantBloc());
+  sl.registerFactory(() => AddNewBloc());
 
   //helper
   sl.registerLazySingleton(() => Dio());
