@@ -50,7 +50,7 @@ abstract class ApiConnection {
     var response = await Dio().post(url!,
         data: body!,
         options: Options(headers: {
-          "Content-Type": "mulitpart/form-data",
+          "Content-Type": "multipart/form-data",
           'Accept': '*/*',
         }));
     print("End PostFormData");
