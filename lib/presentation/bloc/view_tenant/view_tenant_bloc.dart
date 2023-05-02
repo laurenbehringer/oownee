@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:oownee/data/models/edit_success_response_model/edit_success_response_model.dart';
 import 'package:oownee/data/models/global_fail_response_model/globalfail_response_model.dart';
@@ -41,6 +42,7 @@ class ViewTenantBloc extends Bloc<ViewTenantEvent, ViewTenantState> {
 
         // print("Image : ${event.image.path}");
         // print("Image : ${event.image.name}");
+        print("XDDDDD ${event.propertyID}");
 
         FormData body = FormData.fromMap({
           "tenant_id": event.tenantID,
@@ -49,8 +51,11 @@ class ViewTenantBloc extends Bloc<ViewTenantEvent, ViewTenantState> {
           "tenant_rent": event.rentPrice,
           "tenant_birthdate": event.birthDate,
           // "tenant_doc": event.image,
-          "tenant_image": await MultipartFile.fromFile(event.image.path,
-              filename: event.image.name),
+          "tenant_image": await MultipartFile.fromFile(
+            event.image.path,
+            filename: event.image.name,
+            contentType: MediaType("image", "jpeg"),
+          ),
           // "tenant_country": event.tenantCountry,
           "date": event.startingDate,
           "property_id": event.propertyID,
@@ -59,14 +64,24 @@ class ViewTenantBloc extends Bloc<ViewTenantEvent, ViewTenantState> {
         });
 
         try {
-          final response = await ApiConnection.PostFormData(
-            url: "https://app.oownee.com/api/tenet_edit",
-            body: body,
-          );
-          print(response);
-
-          emit(TenantEditSuccessState(
-              editSuccessResponseModelFromJson(response)));
+          ApiConnection.uploadImage(
+              tenantID: event.tenantID,
+              phone_number: event.phone,
+              property_id: event.propertyID,
+              tenant_bank_acc_no: event.bankaccNo,
+              tenant_birthdate: event.birthDate,
+              tenant_email: event.email,
+              tenant_image: event.image,
+              tenant_rent: event.rentPrice,
+              tenantName: event.name);
+          // final response = await ApiConnection.PostFormData(
+          //   url: "https://app.oownee.com/api/tenet_edit",
+          //   body: body,
+          // );
+          // print(response);
+          //
+          // emit(TenantEditSuccessState(
+          //     editSuccessResponseModelFromJson(response)));
         } on DioError catch (e) {
           if (e.response != null) {
             // print("first block ${e.response!.statusCode}");

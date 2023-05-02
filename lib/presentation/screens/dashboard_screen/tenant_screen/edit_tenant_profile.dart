@@ -342,6 +342,8 @@ class _EditTenantProfileState extends State<EditTenantProfile> {
                 Buttons().customElevatedButton(context, pressed: () {
                   print("state $state");
                   print("tenantid ${widget.tenant.propertyId}");
+                  print("tenantid ${widget.tenant.id}");
+
                   BlocProvider.of<ViewTenantBloc>(context)
                       .add(LoadTenantEditEvent(
                     tenantID: widget.tenant.id,
