@@ -50,14 +50,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
                       listener: (context, state) {
                     if (state is ForgotPasswordFailedState) {
-                      Dialogs().forgotPasswordDialog(context,
+                      Dialogs().smallDialog(context,
                           color: Colors.red,
                           text: "This email does not exist. Try Again",
                           icon: Icons.info_outline);
                     }
 
                     if (state is ForgotPasswordSuccessState) {
-                      Dialogs().forgotPasswordDialog(context,
+                      Dialogs().smallDialog(context,
                           color: Colors.green,
                           text: "Successful! Check your mail box",
                           icon: Icons.check_circle_outline);

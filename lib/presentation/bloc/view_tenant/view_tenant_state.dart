@@ -34,3 +34,11 @@ class TenantEditSuccessState extends ViewTenantState {
   @override
   List<Object> get props => [tenantData];
 }
+
+class TenantEditFailedState extends ViewTenantState {
+  // // final String message;
+  // TenantEditFailedState(this.message);
+
+  @override
+  List<Object> get props => [];
+}

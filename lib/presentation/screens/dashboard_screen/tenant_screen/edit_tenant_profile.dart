@@ -7,6 +7,7 @@ import 'package:oownee/presentation/bloc/view_tenant/view_tenant_bloc.dart';
 import 'package:oownee/presentation/screens/dashboard_screen/tenant_screen/view_tenant_profile.dart';
 import 'package:oownee/presentation/shared_widgets/buttons.dart';
 import 'package:oownee/presentation/shared_widgets/cached_network_image.dart';
+import 'package:oownee/presentation/shared_widgets/dialogs.dart';
 import 'package:oownee/presentation/shared_widgets/other.dart';
 
 class EditTenantProfile extends StatefulWidget {
@@ -19,6 +20,7 @@ class EditTenantProfile extends StatefulWidget {
 
 class _EditTenantProfileState extends State<EditTenantProfile> {
   XFile? tenantPhoto, tenantdocumentPhoto;
+
   final ImagePicker _picker = ImagePicker();
 
   void PickFromGallery() async {
@@ -73,6 +75,16 @@ class _EditTenantProfileState extends State<EditTenantProfile> {
                 MaterialPageRoute(
                     builder: (context) =>
                         ViewTenantProfile(tenantID: widget.tenant.id)));
+          }
+
+          if (state is TenantEditFailedState) {
+            print("FAILEURE!");
+            Dialogs().smallDialog(
+              context,
+              duration: 2,
+              color: Colors.red,
+              text: "Failed to send data to server, try again!",
+            );
           }
         },
         builder: (context, state) {
@@ -345,6 +357,7 @@ class _EditTenantProfileState extends State<EditTenantProfile> {
                     startingDate: _selectedDate == null
                         ? widget.tenant.date.toString()
                         : "${_selectedDate!.year}-${_selectedDate!.month}-${_selectedDate!.day}",
+                    image: tenantPhoto!,
                   ));
                 },
                     text: "Done",

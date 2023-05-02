@@ -8,6 +8,7 @@ import 'package:oownee/presentation/bloc/view_tenant/view_tenant_bloc.dart';
 import 'package:oownee/presentation/screens/dashboard_screen/dashboard_screen.dart';
 import 'package:oownee/presentation/shared_widgets/buttons.dart';
 import 'package:oownee/presentation/shared_widgets/cached_network_image.dart';
+import 'package:oownee/presentation/shared_widgets/dialogs.dart';
 import 'package:oownee/presentation/shared_widgets/other.dart';
 
 class AddTenantScren extends StatefulWidget {
@@ -61,6 +62,13 @@ class _AddTenantScrenState extends State<AddTenantScren> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: BlocConsumer<AddNewBloc, AddNewState>(
             listener: (context, state) {
+              if (state is AddNewFailedState) {
+                Dialogs().smallDialog(context,
+                    color: Colors.red,
+                    text: "Something failed",
+                    icon: Icons.check_circle_outline);
+              }
+
               if (state is AddNewSuccessState) {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => DashboardScreen()));

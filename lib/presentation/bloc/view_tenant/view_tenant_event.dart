@@ -25,12 +25,13 @@ class LoadTenantEditEvent extends ViewTenantEvent {
       birthDate,
       tenantCountry,
       bankaccNo;
+  final XFile image;
   // final XFile image, document;
 
   LoadTenantEditEvent(
       {required this.tenantID,
       required this.name,
-      // required this.image,
+      required this.image,
       required this.propertyName,
       required this.rentPrice,
       required this.email,
@@ -52,6 +53,7 @@ class LoadTenantEditEvent extends ViewTenantEvent {
         propertyID,
         birthDate,
         bankaccNo,
-        tenantCountry
+        tenantCountry,
+        image
       ];
 }

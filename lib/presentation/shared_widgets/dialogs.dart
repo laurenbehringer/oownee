@@ -4,14 +4,15 @@ import 'package:oownee/presentation/shared_widgets/buttons.dart';
 void fun() {}
 
 class Dialogs {
-  forgotPasswordDialog(
+  smallDialog(
     BuildContext context, {
     String text = "Text Here",
     Color color = Colors.green,
     IconData icon = Icons.check_circle_outline,
+    int duration = 1,
   }) {
     return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      duration: Duration(seconds: 1),
+      duration: Duration(seconds: duration),
       backgroundColor: color,
       content: Row(
         children: [

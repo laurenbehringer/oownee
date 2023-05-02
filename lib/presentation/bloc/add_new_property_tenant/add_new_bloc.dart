@@ -42,11 +42,12 @@ class AddNewBloc extends Bloc<AddNewEvent, AddNewState> {
             url: "https://app.oownee.com/api/tenet_register",
             body: body,
           );
-          print(response);
 
           emit(AddNewSuccessState(editSuccessResponseModelFromJson(response)));
+          print("LMAFO");
         } catch (e) {
-          print("Error");
+          print(e.toString());
+          print("Error NOW");
           emit(AddNewFailedState());
         }
       }

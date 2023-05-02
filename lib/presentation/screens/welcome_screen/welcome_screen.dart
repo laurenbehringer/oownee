@@ -62,7 +62,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     alignment: Alignment.bottomCenter,
                     child: TextButton(
                       onPressed: () {
-                        Dialogs().forgotPasswordDialog(context);
+                        Dialogs().smallDialog(context);
                       },
                       child: const Text(
                         "Change Language",
