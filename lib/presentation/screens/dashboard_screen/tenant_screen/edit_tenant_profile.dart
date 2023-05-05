@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,15 +20,43 @@ class EditTenantProfile extends StatefulWidget {
 }
 
 class _EditTenantProfileState extends State<EditTenantProfile> {
-  XFile? tenantPhoto, tenantdocumentPhoto;
+  XFile? tenantdocumentPhoto;
+  File? tenantPhoto;
 
   final ImagePicker _picker = ImagePicker();
 
-  void PickFromGallery() async {
-    final photo = await _picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      tenantPhoto = photo;
-    });
+  // void PickFromGallery() async {
+  //   final photo = await _picker.pickImage(source: ImageSource.camera);
+  //   setState(() {
+  //     tenantPhoto = photo;
+  //   });
+  // }
+
+  PickFromGallery2() async {
+    print("testis");
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'jpeg', 'png'],
+    );
+    print("result $result");
+    String filePath = result!.files.single.path!;
+    print("filePath = $filePath");
+  }
+
+  PickFromGallery3() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      File file = File(result.files.single.path!);
+
+      print("result $result");
+      print("file $file");
+      setState(() {
+        tenantPhoto = file;
+      });
+    } else {
+      // User canceled the picker
+    }
   }
 
   DateTime? _selectedDate;
@@ -161,7 +190,7 @@ class _EditTenantProfileState extends State<EditTenantProfile> {
                           right: 1,
                           child: GestureDetector(
                             onTap: () async {
-                              PickFromGallery();
+                              PickFromGallery3();
                             },
                             child: Container(
                               height: 50,

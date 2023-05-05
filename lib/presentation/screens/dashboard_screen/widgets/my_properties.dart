@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oownee/data/models/dashboard_response_model.dart';
 import 'package:oownee/presentation/bloc/view_property/property_view_bloc.dart';
 import 'package:oownee/presentation/routes/routes_const.dart';
+import 'package:oownee/presentation/screens/add_property/add_property_screen.dart';
 import 'package:oownee/presentation/screens/property_list_screen/property_list_screen.dart';
 import 'package:oownee/presentation/screens/view_property/view_property.dart';
 import 'package:oownee/presentation/shared_widgets/textfield.dart';
@@ -80,15 +81,24 @@ class _MyPropertiesState extends State<MyProperties> {
                     ),
                   ),
                   SizedBox(width: 5),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Color(0xFFEEEEEE),
-                        borderRadius: BorderRadius.circular(10)),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-                    child: const Text(
-                      "Add New Property",
-                      style: const TextStyle(color: Color(0xff0065ff)),
+                  GestureDetector(
+                    onTap: () {
+                      print("add property");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddPropertyScreen()));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Color(0xFFEEEEEE),
+                          borderRadius: BorderRadius.circular(10)),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 5),
+                      child: const Text(
+                        "Add New Property",
+                        style: const TextStyle(color: Color(0xff0065ff)),
+                      ),
                     ),
                   ),
                 ],

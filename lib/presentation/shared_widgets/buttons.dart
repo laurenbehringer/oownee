@@ -49,6 +49,7 @@ class Buttons {
     String img = "assets/camera.png",
     IconData icon = Icons.account_box_outlined,
     bool isImg = true,
+    Color iconCol = Colors.white,
   }) {
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -66,7 +67,7 @@ class Buttons {
                   ? Image.asset(
                       img,
                     )
-                  : Icon(icon),
+                  : Icon(icon, color: iconCol),
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(right: 32.0),

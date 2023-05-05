@@ -49,12 +49,11 @@ class ViewTenantBloc extends Bloc<ViewTenantEvent, ViewTenantState> {
           "tenant_name": event.name,
           "phone_number": event.phone,
           "tenant_rent": event.rentPrice,
-          "tenant_birthdate": event.birthDate,
+          // "tenant_birthdate": event.birthDate,
           // "tenant_doc": event.image,
           "tenant_image": await MultipartFile.fromFile(
             event.image.path,
-            filename: event.image.name,
-            contentType: MediaType("image", "jpeg"),
+            // filename: event.image.name,
           ),
           // "tenant_country": event.tenantCountry,
           "date": event.startingDate,
@@ -64,24 +63,14 @@ class ViewTenantBloc extends Bloc<ViewTenantEvent, ViewTenantState> {
         });
 
         try {
-          ApiConnection.uploadImage(
-              tenantID: event.tenantID,
-              phone_number: event.phone,
-              property_id: event.propertyID,
-              tenant_bank_acc_no: event.bankaccNo,
-              tenant_birthdate: event.birthDate,
-              tenant_email: event.email,
-              tenant_image: event.image,
-              tenant_rent: event.rentPrice,
-              tenantName: event.name);
-          // final response = await ApiConnection.PostFormData(
-          //   url: "https://app.oownee.com/api/tenet_edit",
-          //   body: body,
-          // );
-          // print(response);
-          //
-          // emit(TenantEditSuccessState(
-          //     editSuccessResponseModelFromJson(response)));
+          final response = await ApiConnection.PostFormData(
+            url: "https://app.oownee.com/api/tenet_edit",
+            body: body,
+          );
+          print(response);
+
+          emit(TenantEditSuccessState(
+              editSuccessResponseModelFromJson(response)));
         } on DioError catch (e) {
           if (e.response != null) {
             // print("first block ${e.response!.statusCode}");
