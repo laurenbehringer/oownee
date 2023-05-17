@@ -7,7 +7,7 @@ String globalFailedResponseModelToJson(GlobalFailedResponseModel data) =>
     json.encode(data.toJson());
 
 class GlobalFailedResponseModel {
-  String status;
+  bool status;
   String message;
   int code;
 

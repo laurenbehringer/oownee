@@ -4,6 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:oownee/data/models/edit_success_response_model/edit_success_response_model.dart';
+import 'package:oownee/data/models/edit_success_response_model/temp_model.dart';
+import 'package:oownee/data/models/global_fail_response_model/globalfail_response_model.dart';
 import 'package:oownee/data/models/owner_view_model/owner_edit_response_model.dart';
 import 'package:oownee/data/models/owner_view_model/owner_view_response_model.dart';
 import 'package:oownee/data/models/owner_view_model/owner_view_response_model.dart';
@@ -20,8 +23,9 @@ class OwnerViewBloc extends Bloc<OwnerViewEvent, OwnerViewState> {
 
         Map<String, String> body = {"owner_id": event.ownerID};
 
+        var response;
         try {
-          final response = await ApiConnection.GetDashBoardData(
+          response = await ApiConnection.GetDashBoardData(
             url: "https://app.oownee.com/api/owner_view",
             body: body,
           );
@@ -29,38 +33,65 @@ class OwnerViewBloc extends Bloc<OwnerViewEvent, OwnerViewState> {
           emit(OwnerSuccessState(ownerViewResponseModelFromJson(response)));
         } catch (e) {
           print("Error");
-          emit(OwnerFailedState());
+          emit(OwnerFailedState(response));
         }
       }
 
       if (event is LoadOwnerEditEvent) {
+        print("lgsw vs lakers");
+
         emit(OwnerLoadingState());
+        Map<String, String> body;
 
-        // print(event.image);
+        if (event.image != "") {
+          body = {
+            "owner_id": event.ownerId,
+            "name": event.name,
+            "country": event.country,
+            "email": event.email,
+            "phone_number": event.phoneNum,
+            "address": event.address,
+            // "owner_doc": eve
+            "owner_image": event.image
+          };
+        } else {
+          body = {
+            "owner_id": event.ownerId,
+            "name": event.name,
+            "country": event.country,
+            "email": event.email,
+            "phone_number": event.phoneNum,
+            "address": event.address,
+          };
+        }
 
-        FormData body = FormData.fromMap({
-          "owner_id": event.ownerId,
-          "name": event.name,
-          "country": event.country,
-          "email": event.email,
-          "phone_number": event.phoneNum,
-          "address": event.address,
-          // "owner_image": event.image,
-        });
+        print("body here = $body");
 
-        print(body);
+        var response;
 
         try {
-          final response = await ApiConnection.PostFormData(
+          response = await ApiConnection.PostFormDataImage(
             url: "https://app.oownee.com/api/owner_edit",
             body: body,
           );
           print(response);
 
-          emit(OwnerEditSuccessState(ownerEditResponseModelFromJson(response)));
+          emit(OwnerEditSuccessState(uploadResponseModelFromJson(response)));
+        } on DioError catch (e) {
+          if (e.response != null) {
+            // The server responded with an error status code (e.g. 400, 401, 403, etc.)
+            print("First block");
+            print(e.response!.data.toString());
+            emit(OwnerFailedState(
+                globalFailedResponseModelFromJson(e.response!.data)));
+          } else {
+            emit(OwnerFailedUnexpectedState("Something went wrong"));
+            // Something else went wrong (e.g. network connectivity issue)
+            // return ApiResponse(success: false, errorMessage: e.toString());
+          }
         } catch (e) {
-          print("Error");
-          emit(OwnerFailedState());
+          print("Error BRUH");
+          emit(OwnerFailedState(globalFailedResponseModelFromJson(response)));
         }
       }
     });

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:oownee/data/parameters/register_parameters.dart';
 import 'package:oownee/presentation/routes/routes_const.dart';
+import 'package:oownee/presentation/screens/registration_screens/complete_registration.dart';
+import 'package:oownee/presentation/screens/registration_screens/registration_success.dart';
 import 'package:oownee/presentation/shared_widgets/buttons.dart';
+import 'package:oownee/presentation/shared_widgets/navigator_extension.dart';
 
 class PricingScreen extends StatefulWidget {
-  const PricingScreen({Key? key}) : super(key: key);
+  final RegisterParameter param;
+  const PricingScreen({Key? key, required this.param}) : super(key: key);
 
   @override
   State<PricingScreen> createState() => _PricingScreenState();
@@ -53,6 +58,7 @@ class _PricingScreenState extends State<PricingScreen> {
                       onChanged: (val) {
                         setState(() {
                           rentalPrice = int.parse(val);
+                          widget.param.rentPrice = val;
                         });
                       },
                       decoration: const InputDecoration.collapsed(
@@ -142,6 +148,7 @@ class _PricingScreenState extends State<PricingScreen> {
                                 onChanged: (val) {
                                   setState(() {
                                     maintenanceFee = int.parse(val);
+                                    widget.param.maintenanceFee = val;
                                   });
                                 },
                                 decoration: const InputDecoration.collapsed(
@@ -233,7 +240,8 @@ class _PricingScreenState extends State<PricingScreen> {
             // const Spacer(),
             Buttons().customElevatedButton(context, text: "Continue",
                 pressed: () {
-              Navigator.pushNamed(context, completeregistScreen);
+              // context.pushScreen(CompleteRegistrationScreen(param: widget.param));
+              context.pushScreen(RegistrationSucessScreen(param: widget.param));
             }),
             const SizedBox(height: 10),
             Buttons().customElevatedButton(context,

@@ -14,13 +14,12 @@ class LoadOwnerEvent extends OwnerViewEvent {
 }
 
 class LoadOwnerEditEvent extends OwnerViewEvent {
-  final String ownerId, name, country, email, phoneNum, address;
-  // final XFile image;
+  final String ownerId, name, country, email, phoneNum, address, image;
 
   LoadOwnerEditEvent({
     required this.ownerId,
     required this.name,
-    // required this.image,
+    required this.image,
     required this.country,
     required this.email,
     required this.phoneNum,
@@ -28,5 +27,6 @@ class LoadOwnerEditEvent extends OwnerViewEvent {
   });
 
   @override
-  List<Object?> get props => [ownerId, name, country, email, phoneNum, address];
+  List<Object?> get props =>
+      [ownerId, name, country, email, phoneNum, address, image];
 }

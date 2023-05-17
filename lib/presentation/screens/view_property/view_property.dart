@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oownee/presentation/bloc/view_property/property_view_bloc.dart';
 import 'package:oownee/presentation/screens/add_tenant_screen/add_tenant_screen.dart';
+import 'package:oownee/presentation/screens/tenant_list_screen/tenant_list_screen.dart';
+import 'package:oownee/presentation/screens/tenant_list_screen/tenant_list_two_screen.dart';
 import 'package:oownee/presentation/screens/view_property/edit_property.dart';
 import 'package:oownee/presentation/shared_widgets/buttons.dart';
 import 'package:oownee/presentation/shared_widgets/cached_network_image.dart';
@@ -49,8 +51,11 @@ class _ViewPropertyScreenState extends State<ViewPropertyScreen> {
               }
 
               if (state is PropertyViewSuccessState) {
+                print("OK ${state.propertyData.tenants}");
+
                 return Column(
                   children: [
+                    // Text(state.propertyData.property[0].id),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -196,12 +201,17 @@ class _ViewPropertyScreenState extends State<ViewPropertyScreen> {
                             SizedBox(width: 10),
                             GestureDetector(
                               onTap: () {
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) => TenantListScreen(
-                                //           allTenants: allTenants,
-                                //         )));
+                                print(state.propertyData.tenants.runtimeType);
+
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TenantListScreen2(
+                                              tenant:
+                                                  state.propertyData.tenants,
+                                              propertyName: state.propertyData
+                                                  .property[0].propertyName,
+                                            )));
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -223,7 +233,10 @@ class _ViewPropertyScreenState extends State<ViewPropertyScreen> {
                     SizedBox(height: 10),
                     Container(
                       height: 75,
-                      child: ListView.builder(
+                      child: ListView.separated(
+                          separatorBuilder: (context, index) {
+                            return SizedBox(width: 10);
+                          },
                           scrollDirection: Axis.horizontal,
                           itemCount: state.propertyData.tenants.length,
                           itemBuilder: (context, index) {

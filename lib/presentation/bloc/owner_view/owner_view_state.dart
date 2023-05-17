@@ -23,12 +23,25 @@ class OwnerSuccessState extends OwnerViewState {
 }
 
 class OwnerFailedState extends OwnerViewState {
+  final GlobalFailedResponseModel response;
+
+  OwnerFailedState(this.response);
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [response];
+}
+
+class OwnerFailedUnexpectedState extends OwnerViewState {
+  String msg;
+
+  OwnerFailedUnexpectedState(this.msg);
+
+  @override
+  List<Object> get props => [msg];
 }
 
 class OwnerEditSuccessState extends OwnerViewState {
-  final OwnerEditResponseModel ownerData;
+  final UploadResponseModel ownerData;
   OwnerEditSuccessState(this.ownerData);
 
   @override

@@ -19,6 +19,7 @@ class LoadPropertyEditEvent extends PropertyViewEvent {
       // number_of_tenants,
       property_type,
       property_address,
+      image,
       monthly_rent;
 
   LoadPropertyEditEvent(
@@ -26,6 +27,7 @@ class LoadPropertyEditEvent extends PropertyViewEvent {
       required this.property_name,
       // required this.number_of_tenants,
       required this.property_type,
+      required this.image,
       required this.property_address,
       required this.monthly_rent});
 
@@ -36,6 +38,7 @@ class LoadPropertyEditEvent extends PropertyViewEvent {
         // number_of_tenants,
         property_type,
         property_address,
+        image,
         monthly_rent
       ];
 }

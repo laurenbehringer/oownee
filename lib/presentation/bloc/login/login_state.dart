@@ -23,6 +23,20 @@ class LoginSuccessState extends LoginState {
 }
 
 class LoginFailedState extends LoginState {
+  final GlobalFailedResponseModel response;
+  // final String response;
+
+  LoginFailedState(this.response);
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [response];
+}
+
+class LoginFailedUnexpectedState extends LoginState {
+  final String msg;
+
+  const LoginFailedUnexpectedState(this.msg);
+
+  @override
+  List<Object> get props => [msg];
 }

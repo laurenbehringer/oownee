@@ -43,27 +43,43 @@ class ViewTenantBloc extends Bloc<ViewTenantEvent, ViewTenantState> {
         // print("Image : ${event.image.path}");
         // print("Image : ${event.image.name}");
         print("XDDDDD ${event.propertyID}");
+        print("base64 ${event.image}");
 
-        FormData body = FormData.fromMap({
+        // FormData body = FormData.fromMap({
+        //   "tenant_id": event.tenantID,
+        //   "tenant_name": event.name,
+        //   "phone_number": event.phone,
+        //   "tenant_rent": event.rentPrice,
+        //   // "tenant_birthdate": event.birthDate,
+        //   // "tenant_doc": event.image,
+        //   // "tenant_image": await MultipartFile.fromFile(
+        //   //   event.image.path,
+        //   //   // filename: event.image.name,
+        //   // ),
+        //   // "tenant_country": event.tenantCountry,
+        //   "date": event.startingDate,
+        //   "property_id": event.propertyID,
+        //   "tenant_email": event.email,
+        //   "tenant_bank_acc_no": event.bankaccNo,
+        // });
+
+        Map<String, String> body = {
           "tenant_id": event.tenantID,
           "tenant_name": event.name,
           "phone_number": event.phone,
           "tenant_rent": event.rentPrice,
-          // "tenant_birthdate": event.birthDate,
-          // "tenant_doc": event.image,
-          "tenant_image": await MultipartFile.fromFile(
-            event.image.path,
-            // filename: event.image.name,
-          ),
-          // "tenant_country": event.tenantCountry,
-          "date": event.startingDate,
+          "tenant_birthdate": event.birthDate,
           "property_id": event.propertyID,
+          "tenant_country": event.tenantCountry,
+          "date": event.startingDate,
           "tenant_email": event.email,
           "tenant_bank_acc_no": event.bankaccNo,
-        });
+          "tenant_image": event.image,
+          // "tenant_doc": event.
+        };
 
         try {
-          final response = await ApiConnection.PostFormData(
+          final response = await ApiConnection.PostFormDataImage(
             url: "https://app.oownee.com/api/tenet_edit",
             body: body,
           );
@@ -85,6 +101,8 @@ class ViewTenantBloc extends Bloc<ViewTenantEvent, ViewTenantState> {
             // Something else went wrong (e.g. network connectivity issue)
             // return ApiResponse(success: false, errorMessage: e.toString());
           }
+        } catch (e) {
+          print(e.toString());
         }
       }
     });

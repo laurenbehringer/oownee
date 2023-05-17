@@ -39,3 +39,37 @@ class LoadAddNewTenantEvent extends AddNewEvent {
         bankaccNo,
       ];
 }
+
+class LoadAddNewPropertyEvent extends AddNewEvent {
+  final String propertyName,
+      numberofTenants,
+      propertyType,
+      monthlyRent,
+      address,
+      userId,
+      property_doc,
+      property_image;
+
+  LoadAddNewPropertyEvent({
+    required this.propertyName,
+    required this.numberofTenants,
+    required this.propertyType,
+    required this.monthlyRent,
+    required this.address,
+    required this.userId,
+    required this.property_doc,
+    required this.property_image,
+  });
+
+  @override
+  List<Object?> get props => [
+        propertyName,
+        numberofTenants,
+        propertyType,
+        monthlyRent,
+        address,
+        userId,
+        property_doc,
+        property_image
+      ];
+}

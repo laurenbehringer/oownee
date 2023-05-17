@@ -35,23 +35,10 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
       case propertynameScreen:
         return MaterialPageRoute(builder: (_) => const PropertyNameScreen());
-      case propertytypeScreen:
-        return MaterialPageRoute(builder: (_) => const PropertyTypeScreen());
-      case pricingScreen:
-        return MaterialPageRoute(builder: (_) => const PricingScreen());
-      case completeregistScreen:
-        return MaterialPageRoute(
-            builder: (_) => const CompleteRegistrationScreen());
       case setNewPasswordScreen:
         return MaterialPageRoute(builder: (_) => const SetNewPasswordScreen());
       case passwordResetSuccessfullScreen:
         return MaterialPageRoute(builder: (_) => const PasswordResetSuccess());
-      case registrationSuccessScreen:
-        return MaterialPageRoute(
-            builder: (_) => const RegistrationSucessScreen());
-      case firstPropertyprofileScreen:
-        return MaterialPageRoute(
-            builder: (_) => const FirstPropertyProfileScreen());
       case propertyRegisteredScreen:
         return MaterialPageRoute(
             builder: (_) => const PropertyRegisteredScreen());

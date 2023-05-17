@@ -21,25 +21,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
             body: body,
           );
 
-          /*final realResponse = dashboardResponseModelFromJson(response);
-
-          // print(dashboardResponseModelFromJson(response).owner.ownerImage);
-          print("response $response");
-          print("fromjson = ${dashboardResponseModelFromJson(response)}");
-
-          List<Tenant> allTenants = [];
-          final tenantNames = <String>{};
-
-          for (final propertyDetail in realResponse.propertyDetails) {
-            for (final tenant in propertyDetail.tenants) {
-              if (!tenantNames.contains(tenant.tenantName)) {
-                tenantNames.add(tenant.tenantName);
-                allTenants.add(tenant);
-              }
-            }
-          }
-          print("BRUH ${allTenants[0].tenantName}");*/
-
           emit(DashboardSuccessState(dashboardResponseModelFromJson(response)));
         } catch (e) {
           print("Error");

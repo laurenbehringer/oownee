@@ -45,9 +45,58 @@ class AddNewBloc extends Bloc<AddNewEvent, AddNewState> {
 
           emit(AddNewSuccessState(editSuccessResponseModelFromJson(response)));
           print("LMAFO");
+        } on DioError catch (e) {
+          if (e.response != null) {
+            print("First block");
+            print(e.response!.data.toString());
+            emit(AddNewFailedState());
+          } else {
+            print("second block ${e.response!.data}");
+            // Something else went wrong (e.g. network connectivity issue)
+            // return ApiResponse(success: false, errorMessage: e.toString());
+          }
         } catch (e) {
           print(e.toString());
-          print("Error NOW");
+          emit(AddNewFailedState());
+        }
+      }
+
+      if (event is LoadAddNewPropertyEvent) {
+        emit(AddNewLoadState());
+
+        FormData body = FormData.fromMap({
+          "property_name": event.propertyName,
+          "number_of_tenants": event.numberofTenants,
+          "property_type": event.propertyType,
+          "monthly_rent": event.monthlyRent,
+          // "maintenance_charge": event.,
+          // "tenant_doc": event.image,
+          // "tenant_image": event.image,
+          // "date": event.birthDate,
+          // "tenant_email": event.email,
+          // "tenant_bank_acc_no": event.bankaccNo,
+        });
+
+        try {
+          final response = await ApiConnection.PostFormData(
+            url: "https://app.oownee.com/api/property_update",
+            body: body,
+          );
+
+          emit(AddNewSuccessState(editSuccessResponseModelFromJson(response)));
+          print("ok boo");
+        } on DioError catch (e) {
+          if (e.response != null) {
+            print("First block");
+            print(e.response!.data.toString());
+            emit(AddNewFailedState());
+          } else {
+            print("second block ${e.response!.data}");
+            // Something else went wrong (e.g. network connectivity issue)
+            // return ApiResponse(success: false, errorMessage: e.toString());
+          }
+        } catch (e) {
+          print(e.toString());
           emit(AddNewFailedState());
         }
       }

@@ -6,7 +6,9 @@ import 'package:oownee/data/models/dashboard_response_model.dart';
 import 'package:oownee/presentation/bloc/dashboard/dashboard_bloc.dart';
 
 class TestScreen extends StatefulWidget {
-  const TestScreen({Key? key}) : super(key: key);
+  final String base64img;
+
+  const TestScreen({Key? key, required this.base64img}) : super(key: key);
 
   @override
   State<TestScreen> createState() => _TestScreenState();
@@ -16,11 +18,11 @@ class _TestScreenState extends State<TestScreen> {
   DashboardResponseModel? result;
   List<Tenant> listDataItem = [];
 
-  @override
-  void initState() {
-    BlocProvider.of<DashboardBloc>(context).add(LoadDashboardEvent(uid: "5"));
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   BlocProvider.of<DashboardBloc>(context).add(LoadDashboardEvent(uid: "5"));
+  //   super.initState();
+  // }
 
   var dataDum = {
     "status": true,
@@ -112,7 +114,21 @@ class _TestScreenState extends State<TestScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            BlocBuilder<DashboardBloc, DashboardState>(
+            Container(
+              child: Column(
+                children: [
+                  Container(
+                    height: 100,
+                    width: 100,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: Image.memory(base64Decode(widget.base64img))),
+                  ),
+                ],
+              ),
+            )
+
+            /* BlocBuilder<DashboardBloc, DashboardState>(
               builder: (context, state) {
                 if (state is DashboardSuccessState) {
                   var items = state.dashboardData.propertyDetails;
@@ -151,9 +167,23 @@ class _TestScreenState extends State<TestScreen> {
                       });
                 }
 
-                return Container();
+                return Container(
+                  child: Column(
+                    children: [
+                      Text(widget.base64img),
+                      Container(
+                        height: 100,
+                        width: 100,
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child:
+                                Image.memory(base64Decode(widget.base64img))),
+                      ),
+                    ],
+                  ),
+                );
               },
-            )
+            )*/
           ],
         ),
       ),

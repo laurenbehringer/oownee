@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,12 +20,19 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   XFile? ownerPhoto;
   final ImagePicker _picker = ImagePicker();
+  String? base64String;
 
   void PickFromGallery() async {
+    print("in here");
     final photo = await _picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      ownerPhoto = photo;
-    });
+    if (photo != null) {
+      setState(() {
+        ownerPhoto = photo;
+      });
+      final bytes = await photo.readAsBytes();
+      base64String = base64Encode(bytes);
+      print("base64 = $base64String");
+    }
   }
 
   @override
@@ -37,6 +45,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             child: BlocConsumer<OwnerViewBloc, OwnerViewState>(
               listener: (context, state) {
                 if (state is OwnerEditSuccessState) {
+                  print("ok?");
                   Navigator.pushReplacementNamed(context, myprofileScreen);
                 }
               },
@@ -197,6 +206,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                         BlocProvider.of<OwnerViewBloc>(context)
                             .add(LoadOwnerEditEvent(
+                          image: base64String == null ? "" : base64String!,
                           ownerId: uid!,
                           name: name.text,
                           country: country.text,

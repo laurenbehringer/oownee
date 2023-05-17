@@ -28,7 +28,7 @@ class PropertyViewFailedState extends PropertyViewState {
 }
 
 class PropertyEditSuccessState extends PropertyViewState {
-  final EditSuccessResponseModel tenantData;
+  final UploadResponseModel tenantData;
   PropertyEditSuccessState(this.tenantData);
 
   @override

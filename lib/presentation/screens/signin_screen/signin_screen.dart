@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oownee/presentation/bloc/login/login_bloc.dart';
 import 'package:oownee/presentation/routes/routes_const.dart';
 import 'package:oownee/presentation/shared_widgets/buttons.dart';
+import 'package:oownee/presentation/shared_widgets/dialogs.dart';
+import 'package:oownee/presentation/shared_widgets/loading_dialog.dart';
 import 'package:oownee/presentation/shared_widgets/textfield.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -27,9 +29,29 @@ class _SignInScreenState extends State<SignInScreen> {
                   context: context,
                   barrierDismissible: false,
                   builder: (BuildContext context) {
-                    return LoadingDialog();
+                    return LoadingDialog(context: context);
                   },
                 );
+              }
+
+              if (state is LoginFailedState) {
+                print("does it here?");
+                Navigator.pop(context);
+
+                Dialogs().smallDialog(context,
+                    color: Colors.red,
+                    text: state.response.message,
+                    icon: Icons.check_circle_outline);
+              }
+
+              if (state is LoginFailedUnexpectedState) {
+                print("does it here?");
+                Navigator.pop(context);
+
+                Dialogs().smallDialog(context,
+                    color: Colors.red,
+                    text: state.msg,
+                    icon: Icons.check_circle_outline);
               }
 
               if (state is LoginSuccessState) {
@@ -118,21 +140,6 @@ class _SignInScreenState extends State<SignInScreen> {
               );
             },
           )),
-    );
-  }
-}
-
-class LoadingDialog extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      content: Row(
-        children: const [
-          CircularProgressIndicator(),
-          SizedBox(width: 20),
-          Text("Loading..."),
-        ],
-      ),
     );
   }
 }

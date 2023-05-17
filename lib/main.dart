@@ -11,6 +11,7 @@ import 'package:oownee/presentation/bloc/forgot_password/forgot_password_bloc.da
 import 'package:oownee/injection_container.dart' as di;
 import 'package:oownee/presentation/bloc/login/login_bloc.dart';
 import 'package:oownee/presentation/bloc/owner_view/owner_view_bloc.dart';
+import 'package:oownee/presentation/bloc/register/register_bloc.dart';
 import 'package:oownee/presentation/bloc/view_property/property_view_bloc.dart';
 import 'package:oownee/presentation/bloc/view_tenant/view_tenant_bloc.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
   final propertyviewBloc = sl<PropertyViewBloc>();
   final tenantviewBloc = sl<ViewTenantBloc>();
   final addnewBloc = sl<AddNewBloc>();
+  final registerBloc = sl<RegisterBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +46,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => propertyviewBloc),
         BlocProvider(create: (_) => tenantviewBloc),
         BlocProvider(create: (_) => addnewBloc),
+        BlocProvider(create: (_) => registerBloc),
       ],
       child: AppView(),
     );

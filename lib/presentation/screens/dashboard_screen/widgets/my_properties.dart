@@ -6,6 +6,7 @@ import 'package:oownee/presentation/routes/routes_const.dart';
 import 'package:oownee/presentation/screens/add_property/add_property_screen.dart';
 import 'package:oownee/presentation/screens/property_list_screen/property_list_screen.dart';
 import 'package:oownee/presentation/screens/view_property/view_property.dart';
+import 'package:oownee/presentation/shared_widgets/cached_network_image.dart';
 import 'package:oownee/presentation/shared_widgets/textfield.dart';
 
 class MyProperties extends StatefulWidget {
@@ -109,7 +110,7 @@ class _MyPropertiesState extends State<MyProperties> {
           BlocBuilder<PropertyViewBloc, PropertyViewState>(
             builder: (context, state) {
               return Container(
-                height: 220,
+                height: 200,
                 padding: EdgeInsets.all(3),
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
@@ -132,7 +133,15 @@ class _MyPropertiesState extends State<MyProperties> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.asset("assets/dashboard/property_def.png"),
+                              Center(
+                                child: Container(
+                                  height: 100,
+                                  width: 100,
+                                  child: CustomNetworkImage(
+                                      url: widget
+                                          .propertyList[index].propertyIamge),
+                                ),
+                              ),
                               SizedBox(height: 10),
                               Container(
                                 padding: EdgeInsets.symmetric(horizontal: 15),
@@ -150,7 +159,7 @@ class _MyPropertiesState extends State<MyProperties> {
                                       children: [
                                         Icon(Icons.person, color: Colors.blue),
                                         Text(
-                                            "${widget.propertyList[index].numberOfTenants} Tenants")
+                                            "${widget.propertyList[index].tenants.length} Tenants")
                                       ],
                                     )
                                   ],

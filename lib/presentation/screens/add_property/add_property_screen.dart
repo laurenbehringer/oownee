@@ -1,10 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:oownee/data/static_data.dart';
+import 'package:oownee/presentation/bloc/add_new_property_tenant/add_new_bloc.dart';
 import 'package:oownee/presentation/shared_widgets/buttons.dart';
 import 'package:oownee/presentation/shared_widgets/cached_network_image.dart';
 import 'package:oownee/presentation/shared_widgets/other.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddPropertyScreen extends StatefulWidget {
   const AddPropertyScreen({Key? key}) : super(key: key);
@@ -16,12 +21,43 @@ class AddPropertyScreen extends StatefulWidget {
 class _AddPropertyScreenState extends State<AddPropertyScreen> {
   XFile? propertyPhoto, propertydocumentPhoto;
   final ImagePicker _picker = ImagePicker();
+  String dropdownValue = StaticData().dropdownItems.first;
+  String? uid, base64StringProperty, base64StringDocument;
 
-  void PickFromGallery() async {
+  void PickPropertyPhoto() async {
     final photo = await _picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      propertyPhoto = photo;
-    });
+    if (photo != null) {
+      setState(() {
+        propertyPhoto = photo;
+      });
+      final bytes = await photo.readAsBytes();
+      base64StringProperty = base64Encode(bytes);
+      // print("base64 in class = $base64StringProperty");
+    }
+  }
+
+  void PickDocumentPhoto(bool source) async {
+    final photo = await _picker.pickImage(
+        source: source ? ImageSource.gallery : ImageSource.camera);
+    if (photo != null) {
+      setState(() {
+        propertydocumentPhoto = photo;
+      });
+      final bytes = await photo.readAsBytes();
+      base64StringDocument = base64Encode(bytes);
+      // print("base64 in class = $base64StringDocument");
+    }
+  }
+
+  @override
+  void initState() {
+    loadProfile();
+    super.initState();
+  }
+
+  void loadProfile() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    uid = prefs.getString('userID');
   }
 
   TextEditingController name = TextEditingController();
@@ -98,7 +134,7 @@ class _AddPropertyScreenState extends State<AddPropertyScreen> {
                         right: 1,
                         child: GestureDetector(
                           onTap: () async {
-                            PickFromGallery();
+                            PickPropertyPhoto();
                           },
                           child: Container(
                             height: 50,
@@ -132,9 +168,34 @@ class _AddPropertyScreenState extends State<AddPropertyScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               SizedBox(height: 20),
-              OtherShared().editProfileWithIcon(context,
-                  widget: Container(), controller: propertyType),
-              SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.only(left: 10),
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: const Color(0xffebeaeb),
+                ),
+                child: DropdownButtonFormField<String>(
+                  decoration: const InputDecoration(
+                    enabledBorder: InputBorder.none,
+                  ),
+                  value: dropdownValue,
+                  items: StaticData()
+                      .dropdownItems
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (String? value) {
+                    setState(() {
+                      dropdownValue = value!;
+                    });
+                  },
+                ),
+              ),
+              const SizedBox(height: 25),
               const Text(
                 "Property Address",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
@@ -174,11 +235,7 @@ class _AddPropertyScreenState extends State<AddPropertyScreen> {
                   style: TextStyle(fontSize: 15)),
               const SizedBox(height: 50),
               Buttons().iconButton(context, pressed: () async {
-                propertydocumentPhoto =
-                    await _picker.pickImage(source: ImageSource.gallery);
-                setState(() {
-                  propertydocumentPhoto;
-                });
+                PickDocumentPhoto(true);
               },
                   isImg: false,
                   icon: Icons.upload_file,
@@ -187,8 +244,7 @@ class _AddPropertyScreenState extends State<AddPropertyScreen> {
                   color: const Color(0xff0065ff)),
               const SizedBox(height: 10),
               Buttons().iconButton(context, pressed: () async {
-                XFile? photo =
-                    await _picker.pickImage(source: ImageSource.camera);
+                PickDocumentPhoto(false);
               }, text: "Take Photo"),
               const SizedBox(height: 90),
               Buttons().iconButton(context,
@@ -208,8 +264,19 @@ class _AddPropertyScreenState extends State<AddPropertyScreen> {
                 text: "Select Tenant",
               ),
               SizedBox(height: 50),
-              Buttons().customElevatedButton(context,
-                  pressed: () {},
+              Buttons().customElevatedButton(context, pressed: () {
+                BlocProvider.of<AddNewBloc>(context)
+                    .add(LoadAddNewPropertyEvent(
+                  propertyName: name.text,
+                  numberofTenants: "1",
+                  propertyType: propertyType.text,
+                  monthlyRent: monthlyRent.text,
+                  address: propertyAddress.text,
+                  userId: uid!,
+                  property_image: base64StringProperty!,
+                  property_doc: base64StringProperty!,
+                ));
+              },
                   text: "Save",
                   textColor: Colors.white,
                   color: const Color(0xff0065ff)),

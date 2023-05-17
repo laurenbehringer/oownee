@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:oownee/data/models/property_type.dart';
+import 'package:oownee/data/parameters/register_parameters.dart';
 import 'package:oownee/presentation/routes/routes_const.dart';
+import 'package:oownee/presentation/screens/registration_screens/pricing.dart';
 import 'package:oownee/presentation/shared_widgets/buttons.dart';
+import 'package:oownee/presentation/shared_widgets/navigator_extension.dart';
 
 class PropertyTypeScreen extends StatefulWidget {
-  const PropertyTypeScreen({Key? key}) : super(key: key);
+  final RegisterParameter param;
+
+  const PropertyTypeScreen({Key? key, required this.param}) : super(key: key);
 
   @override
   State<PropertyTypeScreen> createState() => _PropertyTypeScreenState();
@@ -17,23 +22,28 @@ class _PropertyTypeScreenState extends State<PropertyTypeScreen> {
     PropertyType(
         assets: "assets/property_type/house.png",
         color: const Color(0xff1e1e1e),
-        title: "My\nHouse"),
+        title: "My\nHouse",
+        type: "House"),
     PropertyType(
         assets: "assets/property_type/apartment.png",
         color: const Color(0xfffcefef),
-        title: "My\nApartment"),
+        title: "My\nApartment",
+        type: "Apartment"),
     PropertyType(
         assets: "assets/property_type/studio.png",
         color: const Color(0xffe6fcfe),
-        title: "My\nStudio"),
+        title: "My\nStudio",
+        type: "Studio"),
     PropertyType(
         assets: "assets/property_type/condo.png",
         color: const Color(0xfff9effc),
-        title: "My\nCondo"),
+        title: "My\nCondo",
+        type: "Condo"),
     PropertyType(
         assets: "assets/property_type/other.png",
         color: const Color(0xffe6feeb),
-        title: "Other")
+        title: "Other",
+        type: "Other")
   ];
 
   @override
@@ -57,7 +67,7 @@ class _PropertyTypeScreenState extends State<PropertyTypeScreen> {
           Expanded(
             child: GridView.builder(
               padding: EdgeInsets.zero,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3, // Number of items per row
                 childAspectRatio: (4 / 5.5), //left
@@ -69,6 +79,8 @@ class _PropertyTypeScreenState extends State<PropertyTypeScreen> {
                 return GestureDetector(
                   onTap: () {
                     setState(() {
+                      widget.param.propertyType =
+                          propertyTypes[index].type.toString();
                       selectedIndex = index;
                     });
                   },
@@ -116,14 +128,19 @@ class _PropertyTypeScreenState extends State<PropertyTypeScreen> {
           ),
           Buttons().customElevatedButton(context, text: "Continue",
               pressed: () {
-            Navigator.pushNamed(context, pricingScreen);
+            if (widget.param.propertyType.isEmpty) {
+              widget.param.propertyType = "house";
+            }
+            print(widget.param.propertyType);
+
+            // Navigator.pushNamed(context, pricingScreen);
+            context.pushScreen(PricingScreen(param: widget.param));
           }),
           const SizedBox(height: 10),
           Buttons().customElevatedButton(context,
-              text: "Back",
-              textColor: Colors.black,
-              pressed: () {},
-              color: const Color(0xfff8f8f8)),
+              text: "Back", textColor: Colors.black, pressed: () {
+            Navigator.pop(context);
+          }, color: const Color(0xfff8f8f8)),
           const SizedBox(height: 30),
         ]),
       ),

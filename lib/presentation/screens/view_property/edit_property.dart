@@ -1,9 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:oownee/data/models/property_view_model/property_view_response_model.dart';
+import 'package:oownee/data/static_data.dart';
 import 'package:oownee/presentation/bloc/view_property/property_view_bloc.dart';
 import 'package:oownee/presentation/bloc/view_tenant/view_tenant_bloc.dart';
 import 'package:oownee/presentation/screens/view_property/view_property.dart';
@@ -24,12 +25,19 @@ class EditPropertyScreen extends StatefulWidget {
 class _EditPropertyScreenState extends State<EditPropertyScreen> {
   XFile? propertyPhoto, propertydocumentPhoto;
   final ImagePicker _picker = ImagePicker();
+  String dropdownValue = StaticData().dropdownItems.first;
+  String? base64String;
 
   void PickFromGallery() async {
     final photo = await _picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      propertyPhoto = photo;
-    });
+    if (photo != null) {
+      setState(() {
+        propertyPhoto = photo;
+      });
+      final bytes = await photo.readAsBytes();
+      base64String = base64Encode(bytes);
+      print("base64 = $base64String");
+    }
   }
 
   @override
@@ -52,6 +60,7 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
           child: BlocConsumer<PropertyViewBloc, PropertyViewState>(
             listener: (context, state) {
               if (state is PropertyEditSuccessState) {
+                print("fanny lol");
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
@@ -166,9 +175,36 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                     "Property Type",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
+                  // OtherShared().editProfileWithIcon(context,
+                  //     widget: Container(), controller: propertyType),
                   SizedBox(height: 20),
-                  OtherShared().editProfileWithIcon(context,
-                      widget: Container(), controller: propertyType),
+                  Container(
+                    padding: const EdgeInsets.only(left: 10),
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: const Color(0xffebeaeb),
+                    ),
+                    child: DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                        enabledBorder: InputBorder.none,
+                      ),
+                      value: dropdownValue,
+                      items: StaticData()
+                          .dropdownItems
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String? value) {
+                        setState(() {
+                          dropdownValue = value!;
+                        });
+                      },
+                    ),
+                  ),
                   SizedBox(height: 20),
                   const Text(
                     "Property Address",
@@ -227,13 +263,17 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                   }, text: "Take Photo"),
                   const SizedBox(height: 70),
                   Buttons().customElevatedButton(context, pressed: () {
+                    print("NO");
+                    print("bruh $base64String");
+
                     BlocProvider.of<PropertyViewBloc>(context)
                         .add(LoadPropertyEditEvent(
                       property_id: widget.property.id,
                       property_name: name.text,
-                      property_type: propertyType.text,
+                      property_type: dropdownValue,
                       property_address: propertyAddress.text,
                       monthly_rent: monthlyRent.text,
+                      image: base64String!,
                     ));
                   },
                       text: "Done",

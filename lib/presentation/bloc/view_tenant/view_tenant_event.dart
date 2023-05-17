@@ -24,8 +24,8 @@ class LoadTenantEditEvent extends ViewTenantEvent {
       propertyID,
       birthDate,
       tenantCountry,
-      bankaccNo;
-  final File image;
+      bankaccNo,
+      image;
   // final XFile image, document;
 
   LoadTenantEditEvent(

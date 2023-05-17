@@ -6,7 +6,6 @@ const String homeScreen = "/home-screen";
 const String propertynameScreen = "/property-name-screen";
 const String propertytypeScreen = "/property-type-screen";
 const String pricingScreen = "/pricing-screen";
-const String completeregistScreen = "/complete-regist-screen";
 const String setNewPasswordScreen = "/set-new-password-screen";
 const String passwordResetSuccessfullScreen = "/password-reset-success-screen";
 const String registrationSuccessScreen = "/registration-success-screen";

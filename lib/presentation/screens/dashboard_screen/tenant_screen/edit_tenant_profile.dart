@@ -1,5 +1,5 @@
+import 'dart:convert';
 import 'dart:io';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,6 +10,7 @@ import 'package:oownee/presentation/shared_widgets/buttons.dart';
 import 'package:oownee/presentation/shared_widgets/cached_network_image.dart';
 import 'package:oownee/presentation/shared_widgets/dialogs.dart';
 import 'package:oownee/presentation/shared_widgets/other.dart';
+import 'package:oownee/test_screen.dart';
 
 class EditTenantProfile extends StatefulWidget {
   final Data tenant;
@@ -20,42 +21,21 @@ class EditTenantProfile extends StatefulWidget {
 }
 
 class _EditTenantProfileState extends State<EditTenantProfile> {
-  XFile? tenantdocumentPhoto;
-  File? tenantPhoto;
+  XFile? tenantdocumentPhoto, tenantPhoto;
+  String? base64String;
 
   final ImagePicker _picker = ImagePicker();
 
-  // void PickFromGallery() async {
-  //   final photo = await _picker.pickImage(source: ImageSource.camera);
-  //   setState(() {
-  //     tenantPhoto = photo;
-  //   });
-  // }
-
-  PickFromGallery2() async {
-    print("testis");
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['jpg', 'jpeg', 'png'],
-    );
-    print("result $result");
-    String filePath = result!.files.single.path!;
-    print("filePath = $filePath");
-  }
-
-  PickFromGallery3() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-
-    if (result != null) {
-      File file = File(result.files.single.path!);
-
-      print("result $result");
-      print("file $file");
+  void PickFromGallery() async {
+    print("in here");
+    final photo = await _picker.pickImage(source: ImageSource.gallery);
+    if (photo != null) {
       setState(() {
-        tenantPhoto = file;
+        tenantPhoto = photo;
       });
-    } else {
-      // User canceled the picker
+      final bytes = await photo.readAsBytes();
+      base64String = base64Encode(bytes);
+      print("base64 = $base64String");
     }
   }
 
@@ -190,7 +170,7 @@ class _EditTenantProfileState extends State<EditTenantProfile> {
                           right: 1,
                           child: GestureDetector(
                             onTap: () async {
-                              PickFromGallery3();
+                              PickFromGallery();
                             },
                             child: Container(
                               height: 50,
@@ -388,7 +368,7 @@ class _EditTenantProfileState extends State<EditTenantProfile> {
                     startingDate: _selectedDate == null
                         ? widget.tenant.date.toString()
                         : "${_selectedDate!.year}-${_selectedDate!.month}-${_selectedDate!.day}",
-                    image: tenantPhoto!,
+                    image: base64String!,
                   ));
                 },
                     text: "Done",

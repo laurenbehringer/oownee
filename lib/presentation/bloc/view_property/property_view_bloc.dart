@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:oownee/data/models/edit_success_response_model/edit_success_response_model.dart';
+import 'package:oownee/data/models/edit_success_response_model/temp_model.dart';
 import 'package:oownee/data/models/property_view_model/property_view_response_model.dart';
 import 'package:oownee/data/services/api_connection.dart';
 
@@ -34,26 +35,34 @@ class PropertyViewBloc extends Bloc<PropertyViewEvent, PropertyViewState> {
       if (event is LoadPropertyEditEvent) {
         emit(PropertyViewLoadState());
 
-        FormData body = FormData.fromMap({
-          "property_id": event.property_id,
-          "property_name": event.property_name,
-          // "number_of_tenants": event.property_name,
-          "property_type": event.property_type,
-          "property_address": event.property_address,
-          "monthly_rent": event.monthly_rent,
-        });
+        print("propertyid ${event.property_id}");
+        print("imagebase64 ${event.image.toString()}");
+
+        // FormData body = FormData.fromMap({
+        //   "property_id": event.property_id,
+        //   // "property_name": event.property_name,
+        //   // // "number_of_tenants": event.property_name,
+        //   // "property_type": event.property_type,
+        //   // "property_address": event.property_address,
+        //   // "monthly_rent": event.monthly_rent,
+        //   "property_image": event.image,
+        // });
+
+        var body = {
+          'property_id': event.property_id,
+          'property_image': event.image,
+        };
 
         try {
-          final response = await ApiConnection.PostFormData(
-            url: "https://app.oownee.com/api/property_update",
+          final response = await ApiConnection.PostFormDataImage(
+            url: "https://app.oownee.com/api/upload_property_image.php",
             body: body,
           );
           print(response);
 
-          emit(PropertyEditSuccessState(
-              editSuccessResponseModelFromJson(response)));
+          emit(PropertyEditSuccessState(uploadResponseModelFromJson(response)));
         } catch (e) {
-          print("Error");
+          print("Error BRUH");
           emit(PropertyViewFailedState());
         }
       }

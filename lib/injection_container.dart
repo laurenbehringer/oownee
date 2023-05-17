@@ -5,6 +5,7 @@ import 'package:oownee/presentation/bloc/dashboard/dashboard_bloc.dart';
 import 'package:oownee/presentation/bloc/forgot_password/forgot_password_bloc.dart';
 import 'package:oownee/presentation/bloc/login/login_bloc.dart';
 import 'package:oownee/presentation/bloc/owner_view/owner_view_bloc.dart';
+import 'package:oownee/presentation/bloc/register/register_bloc.dart';
 import 'package:oownee/presentation/bloc/view_property/property_view_bloc.dart';
 import 'package:oownee/presentation/bloc/view_tenant/view_tenant_bloc.dart';
 
@@ -19,6 +20,7 @@ Future<void> init() async {
   sl.registerFactory(() => PropertyViewBloc());
   sl.registerFactory(() => ViewTenantBloc());
   sl.registerFactory(() => AddNewBloc());
+  sl.registerFactory(() => RegisterBloc());
 
   //helper
   sl.registerLazySingleton(() => Dio());

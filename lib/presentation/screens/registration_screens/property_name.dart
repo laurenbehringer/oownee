@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:oownee/data/parameters/register_parameters.dart';
 import 'package:oownee/presentation/routes/routes_const.dart';
+import 'package:oownee/presentation/screens/registration_screens/property_type.dart';
 import 'package:oownee/presentation/shared_widgets/buttons.dart';
+import 'package:oownee/presentation/shared_widgets/dialogs.dart';
+import 'package:oownee/presentation/shared_widgets/navigator_extension.dart';
 import 'package:oownee/presentation/shared_widgets/textfield.dart';
 
 class PropertyNameScreen extends StatefulWidget {
@@ -11,8 +15,7 @@ class PropertyNameScreen extends StatefulWidget {
 }
 
 class _PropertyNameScreenState extends State<PropertyNameScreen> {
-  String propertyName = "";
-  String tenants = "";
+  RegisterParameter param = RegisterParameter();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class _PropertyNameScreenState extends State<PropertyNameScreen> {
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
               const SizedBox(height: 20),
               SharedTextField().defTextfield(context, changed: (val) {
-                propertyName = val;
+                param.propertyName = val;
               }, text: "Enter Property Name"),
               const SizedBox(height: 25),
               const Text("Tenants",
@@ -43,7 +46,7 @@ class _PropertyNameScreenState extends State<PropertyNameScreen> {
                 context,
                 text: "Enter name of tenant",
                 changed: (val) {
-                  tenants = val;
+                  param.tenantName = val;
                 },
               ),
               const SizedBox(height: 40),
@@ -59,7 +62,14 @@ class _PropertyNameScreenState extends State<PropertyNameScreen> {
               ),
               Buttons().customElevatedButton(context, text: "Continue",
                   pressed: () {
-                Navigator.pushNamed(context, propertytypeScreen);
+                if (param.tenantName.isNotEmpty &&
+                    param.propertyName.isNotEmpty) {
+                  context.pushScreen(PropertyTypeScreen(param: param));
+                } else {
+                  print("empty");
+                  Dialogs().smallDialog(context,
+                      color: Colors.red, text: "Fill all queries");
+                }
               }),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
