@@ -70,7 +70,7 @@ class OwnerViewBloc extends Bloc<OwnerViewEvent, OwnerViewState> {
         var response;
 
         try {
-          response = await ApiConnection.PostFormDataImage(
+          response = await ApiConnection.PostDataImage(
             url: "https://app.oownee.com/api/owner_edit",
             body: body,
           );

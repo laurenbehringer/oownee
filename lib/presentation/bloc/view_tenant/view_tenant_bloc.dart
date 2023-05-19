@@ -79,7 +79,7 @@ class ViewTenantBloc extends Bloc<ViewTenantEvent, ViewTenantState> {
         };
 
         try {
-          final response = await ApiConnection.PostFormDataImage(
+          final response = await ApiConnection.PostDataImage(
             url: "https://app.oownee.com/api/tenet_edit",
             body: body,
           );

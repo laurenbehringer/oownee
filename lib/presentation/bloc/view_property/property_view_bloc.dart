@@ -54,7 +54,7 @@ class PropertyViewBloc extends Bloc<PropertyViewEvent, PropertyViewState> {
         };
 
         try {
-          final response = await ApiConnection.PostFormDataImage(
+          final response = await ApiConnection.PostDataImage(
             url: "https://app.oownee.com/api/upload_property_image.php",
             body: body,
           );

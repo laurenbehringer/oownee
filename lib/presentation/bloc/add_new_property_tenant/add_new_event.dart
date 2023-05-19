@@ -47,8 +47,9 @@ class LoadAddNewPropertyEvent extends AddNewEvent {
       monthlyRent,
       address,
       userId,
-      property_doc,
-      property_image;
+      maintenance_charge;
+  // property_doc,
+  // property_image;
 
   LoadAddNewPropertyEvent({
     required this.propertyName,
@@ -57,8 +58,9 @@ class LoadAddNewPropertyEvent extends AddNewEvent {
     required this.monthlyRent,
     required this.address,
     required this.userId,
-    required this.property_doc,
-    required this.property_image,
+    required this.maintenance_charge,
+    // required this.property_doc,
+    // required this.property_image,
   });
 
   @override
@@ -69,7 +71,20 @@ class LoadAddNewPropertyEvent extends AddNewEvent {
         monthlyRent,
         address,
         userId,
-        property_doc,
-        property_image
+        maintenance_charge,
+        // property_doc,
+        // property_image
       ];
+}
+
+class LoadUploadPropertyImgEvent extends AddNewEvent {
+  final String propertyId, propertyImg, propertyDoc;
+
+  const LoadUploadPropertyImgEvent(
+      {required this.propertyId,
+      required this.propertyImg,
+      required this.propertyDoc});
+
+  @override
+  List<Object?> get props => [propertyId, propertyImg, propertyDoc];
 }

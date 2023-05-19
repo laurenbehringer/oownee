@@ -15,9 +15,6 @@ import 'package:oownee/presentation/screens/registration_screens/first_property_
 import 'package:oownee/presentation/screens/registration_screens/first_tenant_profile.dart';
 import 'package:oownee/presentation/screens/registration_screens/pricing.dart';
 import 'package:oownee/presentation/screens/registration_screens/property_name.dart';
-import 'package:oownee/presentation/screens/registration_screens/property_registered.dart';
-import 'package:oownee/presentation/screens/registration_screens/property_type.dart';
-import 'package:oownee/presentation/screens/registration_screens/registration_success.dart';
 import 'package:oownee/presentation/screens/registration_screens/tenant_register_success.dart';
 import 'package:oownee/presentation/screens/signin_screen/signin_screen.dart';
 import 'package:oownee/presentation/screens/welcome_screen/welcome_screen.dart';
@@ -39,9 +36,6 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const SetNewPasswordScreen());
       case passwordResetSuccessfullScreen:
         return MaterialPageRoute(builder: (_) => const PasswordResetSuccess());
-      case propertyRegisteredScreen:
-        return MaterialPageRoute(
-            builder: (_) => const PropertyRegisteredScreen());
       case tenantProfileScreen:
         return MaterialPageRoute(builder: (_) => const TenantProfileScreen());
       case tenantregisteredsuccessScreen:

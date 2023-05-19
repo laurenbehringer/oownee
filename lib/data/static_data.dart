@@ -1,6 +1,6 @@
 class StaticData {
   List<String> dropdownItems = [
-    'House',
+    'house',
     'Apartment',
     'Studio',
     'Condo',

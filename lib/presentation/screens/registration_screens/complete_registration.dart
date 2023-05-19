@@ -41,7 +41,10 @@ class _CompleteRegistrationScreenState
                   context: context,
                   barrierDismissible: false,
                   builder: (BuildContext context) {
-                    return LoadingDialog(context: context);
+                    return LoadingDialog(
+                      context: context,
+                      txt: "Completing Registration..",
+                    );
                   },
                 );
               }
@@ -51,7 +54,8 @@ class _CompleteRegistrationScreenState
                 print(
                     "ownerinfo =: ${state.response.ownerId} ... ${state.response.ownerEmail}");
 
-                context.pushScreen(RegistrationSucessScreen(param: widget.param));
+                context
+                    .pushScreen(RegistrationSucessScreen(param: widget.param));
               }
               if (state is RegisterFailedUnexpectedState) {
                 Dialogs()

@@ -273,8 +273,9 @@ class _AddPropertyScreenState extends State<AddPropertyScreen> {
                   monthlyRent: monthlyRent.text,
                   address: propertyAddress.text,
                   userId: uid!,
-                  property_image: base64StringProperty!,
-                  property_doc: base64StringProperty!,
+                  maintenance_charge: "",
+                  // property_image: base64StringProperty!,
+                  // property_doc: base64StringProperty!,
                 ));
               },
                   text: "Save",

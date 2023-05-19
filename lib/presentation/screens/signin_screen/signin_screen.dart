@@ -29,7 +29,10 @@ class _SignInScreenState extends State<SignInScreen> {
                   context: context,
                   barrierDismissible: false,
                   builder: (BuildContext context) {
-                    return LoadingDialog(context: context);
+                    return LoadingDialog(
+                      context: context,
+                      txt: "Loading..",
+                    );
                   },
                 );
               }

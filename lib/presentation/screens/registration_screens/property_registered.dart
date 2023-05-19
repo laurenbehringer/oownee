@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:oownee/data/parameters/register_parameters.dart';
 import 'package:oownee/presentation/routes/routes_const.dart';
 import 'package:oownee/presentation/shared_widgets/buttons.dart';
 
 class PropertyRegisteredScreen extends StatefulWidget {
-  const PropertyRegisteredScreen({Key? key}) : super(key: key);
+  final RegisterParameter param;
+
+  const PropertyRegisteredScreen({Key? key, required this.param})
+      : super(key: key);
 
   @override
   State<PropertyRegisteredScreen> createState() =>

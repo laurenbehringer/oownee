@@ -61,7 +61,7 @@ abstract class ApiConnection {
     return response.data;
   }
 
-  static PostFormDataImage({String? url, Map<String, String>? body}) async {
+  static PostDataImage({String? url, Map<String, String>? body}) async {
     print("Start PostFormImage Data");
     var response = await Dio().post(url!,
         data: body!,
