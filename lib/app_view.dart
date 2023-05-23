@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oownee/data/parameters/register_parameters.dart';
 import 'package:oownee/presentation/routes/routes.dart';
+import 'package:oownee/presentation/screens/registration_screens/first_property_profile.dart';
 import 'package:oownee/presentation/screens/signin_screen/signin_screen.dart';
 import 'package:oownee/temp_test.dart';
 import 'package:oownee/test_screen.dart';
@@ -25,7 +27,7 @@ class _AppViewState extends State<AppView> {
           Theme.of(context).textTheme,
         ),
       ),
-      home: const SignInScreen(),
+      home: SignInScreen(),
     );
   }
 }

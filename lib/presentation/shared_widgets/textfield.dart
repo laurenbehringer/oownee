@@ -84,7 +84,7 @@ class SharedTextField {
         padding: EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: const Color(0xfff8f8f8),
+          color: const Color(0xffebeaeb),
         ),
         child: Row(
           children: [

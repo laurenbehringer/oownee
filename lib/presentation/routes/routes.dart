@@ -36,8 +36,6 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const SetNewPasswordScreen());
       case passwordResetSuccessfullScreen:
         return MaterialPageRoute(builder: (_) => const PasswordResetSuccess());
-      case tenantProfileScreen:
-        return MaterialPageRoute(builder: (_) => const TenantProfileScreen());
       case tenantregisteredsuccessScreen:
         return MaterialPageRoute(builder: (_) => const TenantRegisterSuccess());
       case explanationScreen:

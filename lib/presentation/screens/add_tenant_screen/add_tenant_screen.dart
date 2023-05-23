@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -333,13 +332,18 @@ class _AddTenantScrenState extends State<AddTenantScren> {
                       BlocProvider.of<AddNewBloc>(context)
                           .add(LoadAddNewTenantEvent(
                         propertyID: widget.propertyID,
-                        name: name.text,
+                        tenant_name: name.text,
                         rentPrice: tenantRent.text,
                         email: tenantEmail.text,
                         phone: phoneNumber.text,
                         bankaccNo: tenantBankAccNo.text,
                         birthDate:
                             "${_selectedDate!.year}-${_selectedDate!.month}-${_selectedDate!.day}",
+                        date:
+                            "${_selectedDate!.year}-${_selectedDate!.month}-${_selectedDate!.day}",
+                        country: '',
+                        tenant_image: '',
+                        tenant_doc: '',
                       ));
                     },
                         text: "Done",

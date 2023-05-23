@@ -11,4 +11,11 @@ extension NavigationExtensions on BuildContext {
   void pushNamedScreen(String screen) {
     Navigator.pushNamed(this, screen);
   }
+
+  void pushReplacementScreen(Widget screen) {
+    Navigator.pushReplacement(
+      this,
+      MaterialPageRoute(builder: (context) => screen),
+    );
+  }
 }

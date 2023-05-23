@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:oownee/data/parameters/register_parameters.dart';
 import 'package:oownee/presentation/routes/routes_const.dart';
 import 'package:oownee/presentation/screens/registration_screens/first_property_profile.dart';
+import 'package:oownee/presentation/screens/registration_screens/first_tenant_profile.dart';
 import 'package:oownee/presentation/shared_widgets/buttons.dart';
 import 'package:oownee/presentation/shared_widgets/navigator_extension.dart';
 
@@ -50,6 +51,8 @@ class _RegistrationSucessScreenState extends State<RegistrationSucessScreen> {
             padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
             child: Buttons().customElevatedButton(context, text: "Continue",
                 pressed: () {
+              // context.pushScreen(TenantProfileScreen(param: widget.param));
+
               context
                   .pushScreen(FirstPropertyProfileScreen(param: widget.param));
             }),

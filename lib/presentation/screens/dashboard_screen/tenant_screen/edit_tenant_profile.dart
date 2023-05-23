@@ -368,7 +368,7 @@ class _EditTenantProfileState extends State<EditTenantProfile> {
                     startingDate: _selectedDate == null
                         ? widget.tenant.date.toString()
                         : "${_selectedDate!.year}-${_selectedDate!.month}-${_selectedDate!.day}",
-                    image: base64String!,
+                    image: base64String != null ? base64String! : "",
                   ));
                 },
                     text: "Done",

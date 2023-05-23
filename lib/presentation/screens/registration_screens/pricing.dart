@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:oownee/data/parameters/register_parameters.dart';
 import 'package:oownee/presentation/routes/routes_const.dart';
 import 'package:oownee/presentation/screens/registration_screens/complete_registration.dart';
+import 'package:oownee/presentation/screens/registration_screens/first_tenant_profile.dart';
 import 'package:oownee/presentation/screens/registration_screens/registration_success.dart';
 import 'package:oownee/presentation/shared_widgets/buttons.dart';
 import 'package:oownee/presentation/shared_widgets/navigator_extension.dart';
@@ -240,8 +241,10 @@ class _PricingScreenState extends State<PricingScreen> {
             // const Spacer(),
             Buttons().customElevatedButton(context, text: "Continue",
                 pressed: () {
-              // context.pushScreen(CompleteRegistrationScreen(param: widget.param));
-              context.pushScreen(RegistrationSucessScreen(param: widget.param));
+              context
+                  .pushScreen(CompleteRegistrationScreen(param: widget.param));
+              // context.pushScreen(TenantProfileScreen(param: widget.param));
+              // context.pushScreen(RegistrationSucessScreen(param: widget.param));
             }),
             const SizedBox(height: 10),
             Buttons().customElevatedButton(context,

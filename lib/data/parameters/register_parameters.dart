@@ -10,4 +10,5 @@ class RegisterParameter {
   String email = "";
   String phoneNo = "";
   String password = "";
+  String propertyID = "";
 }

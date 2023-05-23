@@ -10,6 +10,7 @@ import 'package:oownee/data/models/edit_success_response_model/edit_success_resp
 import 'package:oownee/data/models/global_fail_response_model/globalfail_response_model.dart';
 import 'package:oownee/data/models/tenant_view_model/tenant_view_response_model.dart';
 import 'package:oownee/data/services/api_connection.dart';
+import 'package:oownee/presentation/bloc/add_new_property_tenant/add_new_bloc.dart';
 
 import '../../../data/models/owner_view_model/owner_edit_response_model.dart';
 

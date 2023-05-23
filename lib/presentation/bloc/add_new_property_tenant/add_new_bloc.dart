@@ -17,23 +17,24 @@ class AddNewBloc extends Bloc<AddNewEvent, AddNewState> {
       if (event is LoadAddNewTenantEvent) {
         emit(AddNewLoadState());
 
-        FormData body = FormData.fromMap({
+        Map<String, String> body = {
           "property_id": event.propertyID,
-          "tenant_name": event.name,
+          "tenant_name": event.tenant_name,
           "phone_number": event.phone,
           "tenant_rent": event.rentPrice,
           "tenant_birthdate": event.birthDate,
-          // "tenant_doc": event.image,
-          // "tenant_image": event.image,
           "date": event.birthDate,
           "tenant_email": event.email,
           "tenant_bank_acc_no": event.bankaccNo,
-        });
+          "tenant_country": event.country,
+          "tenant_image": event.tenant_image,
+          "tenant_doc": event.tenant_doc,
+        };
 
         var response;
 
         try {
-          final response = await ApiConnection.PostFormData(
+          final response = await ApiConnection.PostDataImage(
             url: "https://app.oownee.com/api/tenet_register",
             body: body,
           );

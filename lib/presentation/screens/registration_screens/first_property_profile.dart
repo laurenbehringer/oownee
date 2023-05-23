@@ -7,14 +7,12 @@ import 'package:oownee/data/parameters/register_parameters.dart';
 import 'package:oownee/data/static_data.dart';
 import 'package:oownee/presentation/bloc/add_new_property_tenant/add_new_bloc.dart';
 import 'package:oownee/presentation/bloc/register/register_bloc.dart';
-import 'package:oownee/presentation/routes/routes_const.dart';
 import 'package:oownee/presentation/screens/registration_screens/property_registered.dart';
 import 'package:oownee/presentation/shared_widgets/buttons.dart';
 import 'package:oownee/presentation/shared_widgets/dialogs.dart';
 import 'package:oownee/presentation/shared_widgets/loading_dialog.dart';
 import 'package:oownee/presentation/shared_widgets/navigator_extension.dart';
 import 'package:oownee/presentation/shared_widgets/other.dart';
-import 'package:oownee/presentation/shared_widgets/textfield.dart';
 import 'package:image_picker/image_picker.dart';
 
 class FirstPropertyProfileScreen extends StatefulWidget {
@@ -62,18 +60,16 @@ class _FirstPropertyProfileScreenState
     }
   }
 
+  TextEditingController address = TextEditingController(),
+      tenantsNo = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     TextEditingController name =
         TextEditingController(text: widget.param.propertyName);
 
-    TextEditingController address =
-        TextEditingController(text: widget.param.address);
-
     TextEditingController monthlyRent =
         TextEditingController(text: widget.param.rentPrice);
-
-    TextEditingController tenantsNo = TextEditingController();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -105,6 +101,7 @@ class _FirstPropertyProfileScreenState
 
             if (state is AddPropertySuccessState) {
               Navigator.pop(context);
+              widget.param.propertyID = state.response.propertyId.toString();
               showDialog(
                 context: context,
                 barrierDismissible: false,
@@ -139,6 +136,7 @@ class _FirstPropertyProfileScreenState
                     }
                     return Container();
                   }),
+                  SizedBox(height: 90),
                   Align(
                       alignment: Alignment.center,
                       child: Image.asset("assets/logo_inverted.png")),
@@ -153,6 +151,7 @@ class _FirstPropertyProfileScreenState
                     child: GestureDetector(
                       onTap: () {
                         PickPropertyPhoto();
+                        print(uid!);
                       },
                       child: Container(
                         height: 190,
@@ -313,8 +312,8 @@ class _FirstPropertyProfileScreenState
                     if (name.text.isNotEmpty &&
                         widget.param.propertyType.isNotEmpty &&
                         address.text.isNotEmpty &&
-                        base64StringDocument!.isNotEmpty &&
-                        base64StringProperty!.isNotEmpty &&
+                        base64StringDocument != null &&
+                        base64StringProperty != null &&
                         monthlyRent.text.isNotEmpty) {
                       BlocProvider.of<AddNewBloc>(context)
                           .add(LoadAddNewPropertyEvent(
@@ -324,7 +323,7 @@ class _FirstPropertyProfileScreenState
                         address: address.text,
                         monthlyRent: monthlyRent.text,
                         maintenance_charge: widget.param.maintenanceFee,
-                        userId: "2",
+                        userId: uid!,
                       ));
                     } else {
                       Dialogs().smallDialog(context,

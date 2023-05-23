@@ -5,38 +5,44 @@ abstract class AddNewEvent extends Equatable {
 }
 
 class LoadAddNewTenantEvent extends AddNewEvent {
-  final String name,
+  final String tenant_name,
       rentPrice,
       email,
       phone,
-      // startingDate,
       propertyID,
       birthDate,
-      // tenantCountry,
-      bankaccNo;
-  // final XFile image, document;
+      date,
+      bankaccNo,
+      country,
+      tenant_image,
+      tenant_doc;
 
   LoadAddNewTenantEvent(
-      {required this.name,
-      // required this.image,
+      {required this.tenant_name,
       required this.propertyID,
       required this.rentPrice,
       required this.email,
       required this.phone,
-      // required this.startingDate,
       required this.birthDate,
-      // required this.tenantCountry,
-      required this.bankaccNo});
+      required this.date,
+      required this.bankaccNo,
+      required this.country,
+      required this.tenant_image,
+      required this.tenant_doc});
 
   @override
   List<Object?> get props => [
-        name,
+        tenant_name,
         rentPrice,
         email,
         phone,
         propertyID,
         birthDate,
+        date,
         bankaccNo,
+        country,
+        tenant_image,
+        tenant_doc
       ];
 }
 
@@ -87,4 +93,9 @@ class LoadUploadPropertyImgEvent extends AddNewEvent {
 
   @override
   List<Object?> get props => [propertyId, propertyImg, propertyDoc];
+}
+
+class ResetAddNewEvent extends AddNewEvent {
+  @override
+  List<Object?> get props => [];
 }

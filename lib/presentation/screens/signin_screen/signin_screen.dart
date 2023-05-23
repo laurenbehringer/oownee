@@ -106,7 +106,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   const SizedBox(height: 20),
                   Buttons().customElevatedButton(context, pressed: () {
                     BlocProvider.of<LoginBloc>(context).add(LoadLoginEvent(
-                        password = "admin@gmail.com", email = "admin"));
+                        password = "joshua6969@gmail.com",
+                        email = "password123"));
                   }),
                   const SizedBox(height: 20),
                   Align(
